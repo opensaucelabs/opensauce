@@ -147,7 +147,7 @@ const contracts = {
           ],
         },
         GitHubLink: {
-          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
           abi: [
             {
               inputs: [
@@ -375,6 +375,150 @@ const contracts = {
                 },
               ],
               stateMutability: "pure",
+              type: "function",
+            },
+          ],
+        },
+        OpenSauce: {
+          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          abi: [
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "previousOwner",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "OwnershipTransferred",
+              type: "event",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "repoContractAddress",
+                  type: "address",
+                },
+              ],
+              name: "getRepoInfo",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "gitHubUrl",
+                      type: "string",
+                    },
+                    {
+                      internalType: "address",
+                      name: "creator",
+                      type: "address",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "creatorGitHubId",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct OpenSauce.Repo",
+                  name: "",
+                  type: "tuple",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getSpawnedContracts",
+              outputs: [
+                {
+                  internalType: "contract OpenSauceToken[]",
+                  name: "",
+                  type: "address[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "owner",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "renounceOwnership",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "owner_",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "gitHubUrl",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "creatorGitHubId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "name_",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "symbol_",
+                  type: "string",
+                },
+                {
+                  internalType: "uint8",
+                  name: "decimals_",
+                  type: "uint8",
+                },
+              ],
+              name: "spawnContract",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "transferOwnership",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
           ],
