@@ -53,7 +53,7 @@ const step0 = () => {
       }}
     >
       <div>
-        <div style={{ textAlign: "center", fontWeight: "800", fontSize: "20px" }}>Connect your Github</div>
+        <div style={{ textAlign: "center", fontWeight: "800", fontSize: "30px" }}>Connect your Github</div>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           To tokenize your repository, first we need to <br></br>
           check if you are the owner
@@ -83,7 +83,7 @@ const step1 = () => {
       }}
     >
       <div>
-        <div style={{ textAlign: "center", fontWeight: "800", fontSize: "20px" }}>Let&apos;s tokenize your repo</div>
+        <div style={{ textAlign: "center", fontWeight: "800", fontSize: "30px" }}>Let&apos;s tokenize your repo</div>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           Now we will configure the basics of the <br></br>
           tokenization of your repository

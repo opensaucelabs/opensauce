@@ -1,55 +1,118 @@
-import Head from "next/head";
-import Link from "next/link";
+import Image from "next/image";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import type { NextPage } from "next";
-import { BugAntIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import sauceLogo from "~~/public/sauce_landing.svg";
 
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Scaffold-eth App</title>
-        <meta name="description" content="Created with 🏗 scaffold-eth" />
-      </Head>
-
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center mb-8">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">scaffold-eth 2</span>
-          </h1>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold">packages/nextjs/pages/index.tsx</code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract <code className="italic bg-base-300 text-base font-bold">YourContract.sol</code> in{" "}
-            <code className="italic bg-base-300 text-base font-bold">packages/hardhat/contracts</code>
-          </p>
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          marginTop: "1rem",
+          marginBottom: "3rem",
+        }}
+      >
+        <Image src={sauceLogo} alt="" width="300"></Image>
+        <div style={{ textAlign: "center", fontWeight: "800", fontSize: "20px", marginTop: "2rem" }}>
+          The place where you can add extra sauce to your repository!
         </div>
-
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contract
-                </Link>{" "}
-                tab.
-              </p>
-            </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <SparklesIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Experiment with{" "}
-                <Link href="/example-ui" passHref className="link">
-                  Example UI
-                </Link>{" "}
-                to build your own UI.
-              </p>
-            </div>
-          </div>
+        <div style={{ textAlign: "center", marginTop: "1rem" }}>
+          With Open Sauce, you can tokenize your repository and reward contributors based on their <br></br>
+          involvement in the project.
+        </div>
+        <div style={{ marginTop: "1rem" }}>
+          <Button variant="outlined">Add extra sauce to your project</Button>
+        </div>
+        <div style={{ textAlign: "center", fontWeight: "800", fontSize: "20px", marginTop: "2rem" }}>How it works?</div>
+        <div
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row",
+            marginTop: "1rem",
+          }}
+        >
+          <Card style={{ width: "100%", marginRight: "10px" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Engage your contributors
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Lorem ipsum dolor sit amet, <br />
+                consectetur aclipiscing elit.
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card style={{ width: "100%", marginRight: "10px" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Expand your community
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Lorem ipsum dolor sit amet, <br />
+                consectetur aclipiscing elit.
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card style={{ width: "100%", marginRight: "10px" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Future proof your <br></br> repo
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Lorem ipsum dolor sit amet, <br />
+                consectetur aclipiscing elit.
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
+        <div
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row",
+            marginTop: "1rem",
+          }}
+        >
+          <Card style={{ width: "100%", marginRight: "10px" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Make your project Sustainable
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Lorem ipsum dolor sit amet, <br />
+                consectetur aclipiscing elit.
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card style={{ width: "100%", marginRight: "10px" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Increase the quality of your project
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Lorem ipsum dolor sit amet, <br />
+                consectetur aclipiscing elit.
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card style={{ width: "100%", marginRight: "10px" }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                Future proof your <br></br> repo
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Lorem ipsum dolor sit amet, <br />
+                consectetur aclipiscing elit.
+              </Typography>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </>
