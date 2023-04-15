@@ -9,7 +9,6 @@ contract GitHubLink is ChainlinkClient {
     using Chainlink for Chainlink.Request;
 
     mapping(string => address) private linkedAccounts;
-    mapping(string => string) private linkedAccountsStrings;
     mapping(bytes32 => string) private requests;
 
     address public oracle;
@@ -33,11 +32,6 @@ contract GitHubLink is ChainlinkClient {
     function linkedAccount(string memory _githubUsername) public view returns (address)
     {
         return linkedAccounts[_githubUsername];
-    }
-
-    function linkedAccountString(string memory _githubUsername) public view returns (string memory)
-    {
-        return linkedAccountsStrings[_githubUsername];
     }
     
     function chainlinkAddress() public view returns (address) {
@@ -73,11 +67,10 @@ contract GitHubLink is ChainlinkClient {
     function finalizeGitHubLinking(bytes32 _requestId, string memory _address) public recordChainlinkFulfillment(_requestId)
     {
         string memory gitHubUsername = requests[_requestId];
-        linkedAccounts[gitHubUsername] = stringToAddress(_address);
-        linkedAccountsStrings[gitHubUsername] = _address;
+        linkedAccounts[gitHubUsername] = _stringToAddress(_address);
     }
 
-    function stringToAddress(string memory _address) public pure returns (address) {
+    function _stringToAddress(string memory _address) private pure returns (address) {
         require(bytes(_address).length == 42, "Invalid address length");
 
         bytes memory addrBytes = bytes(_address);

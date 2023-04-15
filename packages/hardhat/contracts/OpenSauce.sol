@@ -1,42 +1,53 @@
-
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-import './OpenSauceToken.sol';
+import "./OpenSauceToken.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import './IGitHubLink.sol';
+import "./IGitHubLink.sol";
 
 // Factory contract for creating OpenSauce token contracts.
-contract OpenSauce is Ownable {
+contract OpenSauce is Ownable, IGitHubLink {
 
-    struct Repo { 
-        string gitHubUrl;
-        address creator;
-        uint creatorGitHubId;
-    }
+  OpenSauceToken[] _spawnedContracts;
 
-    mapping (address => Repo) repos;
+  IGitHubLink _gitHubLinkContract;
 
-    OpenSauceToken[] spawnedContracts;
+  mapping(string => address[]) tokensForOwner;
+  mapping(string => address) repoToken;
+  // todo: add list or all github urls that have a token
 
-    IGitHubLink gitHubLinkContract;
+  function spawnContract(
+    string memory gitHubUrl,
+    string memory username,
+    string memory tokenName,
+    string memory tokenSymbol,
+    uint8 tokenDecimals
+  ) public onlyOneTokenPerRepo(gitHubUrl) {
+    // todo: require(msg.sender == linkedAccount(username));
+    OpenSauceToken spawn = new OpenSauceToken(tokenName, tokenSymbol, tokenDecimals, gitHubUrl, address(this));
+    _spawnedContracts.push(spawn);
+    tokensForOwner[username].push(address(spawn));
+  }
 
-    function spawnContract(address owner_, string memory gitHubUrl, uint creatorGitHubId, string memory name_, string memory symbol_, uint8 decimals_) public {
-       OpenSauceToken spawn = new OpenSauceToken(owner_, name_, symbol_, decimals_); 
-       spawnedContracts.push(spawn);
-       repos[address(spawn)] = Repo(gitHubUrl, msg.sender, creatorGitHubId);
-    }
+  function getSpawnedContracts() public view returns (OpenSauceToken[] memory) {
+    return _spawnedContracts;
+  }
 
-    function getSpawnedContracts() public view returns (OpenSauceToken[] memory){
-        return spawnedContracts;
-    }
+  function setGitHubLinkContract(address gitHubLinkContract) public {
+    _gitHubLinkContract = IGitHubLink(gitHubLinkContract);
+  }
 
-    function getRepoInfo(address repoContractAddress) public view returns (Repo memory) {
-        return repos[repoContractAddress];
-    }
+  function linkedAccount(string memory username) public view returns (address) {
+    return _gitHubLinkContract.linkedAccount(username);
+  }
 
-    function setGitHubLinkContract(address gitHubLinkContract_) public {
-        gitHubLinkContract = IGitHubLink(gitHubLinkContract_);
-    }
+  function getTokenForOwner(string memory username) public view returns (address[] memory) {
+    return tokensForOwner[username];
+  }
+
+  modifier onlyOneTokenPerRepo(string memory gitHubUrl) {
+    require(repoToken[gitHubUrl] == address(0), "Token already exists for provided repo.");
+    _;
+  }
 
 }
