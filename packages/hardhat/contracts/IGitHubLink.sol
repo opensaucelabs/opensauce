@@ -11,6 +11,4 @@ interface IGitHubLink {
 
     function linkedAccount(string memory _githubUsername) external view returns (address);
 
-    function linkedAccountString(string memory _githubUsername) external view returns (string memory);
-
 }
