@@ -14,7 +14,6 @@ contract OpenSauce is Ownable, IGitHubLink {
 
   mapping(string => address[]) tokensForOwner;
   mapping(string => address) repoToken;
-  // todo: add list or all github urls that have a token
 
   function spawnContract(
     string memory gitHubUrl,
@@ -29,12 +28,12 @@ contract OpenSauce is Ownable, IGitHubLink {
     tokensForOwner[username].push(address(spawn));
   }
 
-  function getSpawnedContracts() public view returns (OpenSauceToken[] memory) {
-    return _spawnedContracts;
-  }
-
   function setGitHubLinkContract(address gitHubLinkContract) public {
     _gitHubLinkContract = IGitHubLink(gitHubLinkContract);
+  }
+
+  function getSpawnedContracts() public view returns (OpenSauceToken[] memory) {
+    return _spawnedContracts;
   }
 
   function linkedAccount(string memory username) public view returns (address) {

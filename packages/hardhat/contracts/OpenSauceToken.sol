@@ -26,14 +26,19 @@ contract OpenSauceToken is Ownable, ERC20 {
         string memory symbol,
         uint8 decimals_,
         string memory gitHubUrl_,
-        address gitHubLinkContractAddress // 0x1eAE1A6084E4c826dee0C173CDB5040ecFf1CBb7
+        address gitHubLinkContractAddress
     )
         ERC20(name, symbol)
     {
-        //transferOwnership(owner);
         _decimals = decimals_;
         _gitHubUrl = gitHubUrl_;
         _setGitHubLinkContract(gitHubLinkContractAddress);
+    }
+
+    // public methods
+
+    function setGitHubLinkContract(address _address) public onlyOwner {
+        _setGitHubLinkContract(_address);
     }
 
     function distribute(
@@ -48,14 +53,6 @@ contract OpenSauceToken is Ownable, ERC20 {
             _totalRewarded[usernames[i]] += claimable_;
         }
         lastDistribution = block.number;
-    }
-
-    function setGitHubLinkContract(address _address) public onlyOwner {
-        _setGitHubLinkContract(_address);
-    }
-
-    function _setGitHubLinkContract(address _address) private {
-        _gitHubLinkContract = IGitHubLink(_address);
     }
 
     function claim(string memory username) public {
@@ -74,6 +71,10 @@ contract OpenSauceToken is Ownable, ERC20 {
         return _totalRewarded[username];
     }
 
+    function gitHubUrl() public view returns (string memory) {
+        return _gitHubUrl;
+    }
+
     function decimals()
         public
         view
@@ -84,8 +85,10 @@ contract OpenSauceToken is Ownable, ERC20 {
         return _decimals;
     }
 
-    function gitHubUrl() public view returns (string memory) {
-        return _gitHubUrl;
+    // private methods
+
+    function _setGitHubLinkContract(address _address) private {
+        _gitHubLinkContract = IGitHubLink(_address);
     }
 
     function _linkedAccount(string memory gitHubUsername) private view returns (address) {

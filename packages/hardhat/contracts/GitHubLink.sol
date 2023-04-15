@@ -31,30 +31,6 @@ contract GitHubLink is ChainlinkClient, Ownable {
         _filePath = "/main/.opensauce.json";
     }
 
-    // setter methods
-
-    function setOracle(address oracle_) public onlyOwner {
-        oracle = oracle_;
-    }
-
-    function setJobId(bytes32 _jobId) public onlyOwner {
-        jobId = _jobId;
-    }
-
-    function setFee(uint256 fee_) public onlyOwner {
-        fee = fee_;
-    }
-
-    function setGitHubUrlDomain(string memory domain) public onlyOwner {
-        _domain = domain;
-    }
-
-    function setFilePath(string memory filePath) public onlyOwner {
-        _filePath = filePath;
-    }
-
-    // chainlink methods
-
     /**
      * Create a Chainlink request to retrieve API response, find the target
      * data.
@@ -87,7 +63,25 @@ contract GitHubLink is ChainlinkClient, Ownable {
         linkedAccounts[gitHubUsername] = _stringToAddress(_address);
     }
 
-    // getter methods
+    function setOracle(address oracle_) public onlyOwner {
+        oracle = oracle_;
+    }
+
+    function setJobId(bytes32 _jobId) public onlyOwner {
+        jobId = _jobId;
+    }
+
+    function setFee(uint256 fee_) public onlyOwner {
+        fee = fee_;
+    }
+
+    function setGitHubUrlDomain(string memory domain) public onlyOwner {
+        _domain = domain;
+    }
+
+    function setFilePath(string memory filePath) public onlyOwner {
+        _filePath = filePath;
+    }
 
     function linkedAccount(string memory _githubUsername) public view returns (address) {
         return linkedAccounts[_githubUsername];
@@ -100,8 +94,6 @@ contract GitHubLink is ChainlinkClient, Ownable {
     function buildUrl(string memory _githubUsername) public view returns (string memory) {
         return string(abi.encodePacked(_domain, _githubUsername, "/", _githubUsername, _filePath));
     }
-
-    // private methods
 
     function _stringToAddress(string memory _address) private pure returns (address) {
         require(bytes(_address).length == 42, "Invalid address length");
