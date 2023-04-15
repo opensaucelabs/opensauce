@@ -7,6 +7,9 @@ import "./IGitHubLink.sol";
 
 // An OpenSauce token contract.
 contract OpenSauceToken is Ownable, ERC20 {
+    
+    uint public lastDistribution;
+    string[] public contributorNames;
 
     uint8 _decimals;
     string _gitHubUrl;
@@ -15,7 +18,6 @@ contract OpenSauceToken is Ownable, ERC20 {
 
     mapping(string => uint256) _claimables;
     mapping(string => uint256) _totalRewarded;
-    string[] public contributorNames;
 
     IGitHubLink _gitHubLinkContract;
 
@@ -45,6 +47,7 @@ contract OpenSauceToken is Ownable, ERC20 {
             _claimables[usernames[i]] += claimable_;
             _totalRewarded[usernames[i]] += claimable_;
         }
+        lastDistribution = block.number;
     }
 
     function setGitHubLinkContract(address _address) public onlyOwner {
