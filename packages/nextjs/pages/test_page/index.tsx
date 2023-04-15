@@ -7,8 +7,9 @@ import Typography from "@mui/material/Typography";
 import { useTokenData } from "~~/hooks/custom_hooks/useTokenData";
 
 export default function Dashboard() {
-  const address = "0x3B02fF1e626Ed7a8fd6eC5299e2C54e1421B626B";
-  const { symbol, githubUrl } = useTokenData(address);
+  // const address = "0x3B02fF1e626Ed7a8fd6eC5299e2C54e1421B626B";
+  const address = "0x0E1F40d1613eab414F932D2d610FE481ECb9cC75";
+  const { symbol, githubUrl, totalSupply } = useTokenData(address);
 
   return (
     // <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
@@ -33,7 +34,7 @@ export default function Dashboard() {
               Total Token Supply
             </Typography>
             <Typography variant="h5" component="div">
-              2,000,000
+              {totalSupply}
             </Typography>
           </CardContent>
         </Card>
