@@ -4,6 +4,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import './OpenSauceToken.sol';
 import "@openzeppelin/contracts/access/Ownable.sol";
+import './IGitHubLink.sol';
 
 // Factory contract for creating OpenSauce token contracts.
 contract OpenSauce is Ownable {
@@ -18,6 +19,8 @@ contract OpenSauce is Ownable {
 
     OpenSauceToken[] spawnedContracts;
 
+    IGitHubLink gitHubLinkContract;
+
     function spawnContract(address owner_, string memory gitHubUrl, uint creatorGitHubId, string memory name_, string memory symbol_, uint8 decimals_) public {
        OpenSauceToken spawn = new OpenSauceToken(owner_, name_, symbol_, decimals_); 
        spawnedContracts.push(spawn);
@@ -30,6 +33,10 @@ contract OpenSauce is Ownable {
 
     function getRepoInfo(address repoContractAddress) public view returns (Repo memory) {
         return repos[repoContractAddress];
+    }
+
+    function setGitHubLinkContract(address gitHubLinkContract_) public {
+        gitHubLinkContract = IGitHubLink(gitHubLinkContract_);
     }
 
 }
