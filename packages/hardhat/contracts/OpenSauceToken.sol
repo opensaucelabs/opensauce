@@ -1,9 +1,9 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
-// import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./IGitHubLink.sol";
 
 // An OpenSauce token contract.
 contract OpenSauceToken is Ownable, ERC20 {
@@ -13,13 +13,70 @@ contract OpenSauceToken is Ownable, ERC20 {
     address _creator;
     uint _creatorGitHubId;
 
-    constructor(address owner_, string memory name_, string memory symbol_, uint8 decimals_) ERC20(name_, symbol_) {
-        transferOwnership(owner_);
+    mapping(string => uint256) _claimables;
+
+    IGitHubLink _gitHubLinkContract;
+
+    constructor(
+        //address owner, // automatically set to msg.sender by Ownable
+        string memory name,
+        string memory symbol,
+        uint8 decimals_,
+        address gitHubLinkContractAddress // 0x1eAE1A6084E4c826dee0C173CDB5040ecFf1CBb7
+    )
+        ERC20(name, symbol)
+    {
+        //transferOwnership(owner);
         _decimals = decimals_;
+        _setGitHubLinkContract(gitHubLinkContractAddress);
     }
 
-    function decimals() public view virtual override returns (uint8) {
+    function distribute(
+        string[] memory usernames,
+        uint256[] memory claimables
+    )
+        public
+        onlyOwner
+    {
+        uint256 arrLength = usernames.length;
+        require(arrLength == claimables.length, "invalid parameters");
+        for (uint i = 0; i < arrLength; i++) {
+            _claimables[usernames[i]] = claimables[i];
+        }
+    }
+
+    function setGitHubLinkContract(address _address) public onlyOwner {
+        _setGitHubLinkContract(_address);
+    }
+
+    function _setGitHubLinkContract(address _address) internal {
+        _gitHubLinkContract = IGitHubLink(_address);
+    }
+
+    function claim(string memory username) public {
+        address linkedAccount = _linkedAccount(username);
+        require(linkedAccount == msg.sender, "no authorization");
+        uint256 amount = _claimables[username];
+        delete _claimables[username];
+        _mint(linkedAccount, amount);
+    }
+
+    function claimable(string memory username) public view returns (uint256) {
+        return _claimables[username];
+    }
+
+    function decimals()
+        public
+        view
+        virtual
+        override
+        returns (uint8)
+    {
         return _decimals;
+    }
+
+    function _linkedAccount(string memory gitHubUsername) private view returns (address) {
+        return _gitHubLinkContract.linkedAccount(gitHubUsername);
     }
 
 }

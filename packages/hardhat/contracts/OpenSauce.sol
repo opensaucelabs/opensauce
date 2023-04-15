@@ -15,28 +15,32 @@ contract OpenSauce is Ownable {
         uint creatorGitHubId;
     }
 
-    mapping (address => Repo) repos;
+    mapping (address => Repo) _repos;
 
-    OpenSauceToken[] spawnedContracts;
+    OpenSauceToken[] _spawnedContracts;
 
-    IGitHubLink gitHubLinkContract;
+    IGitHubLink _gitHubLinkContract;
 
-    function spawnContract(address owner_, string memory gitHubUrl, uint creatorGitHubId, string memory name_, string memory symbol_, uint8 decimals_) public {
-       OpenSauceToken spawn = new OpenSauceToken(owner_, name_, symbol_, decimals_); 
-       spawnedContracts.push(spawn);
-       repos[address(spawn)] = Repo(gitHubUrl, msg.sender, creatorGitHubId);
+    function spawnContract(string memory gitHubUrl, uint creatorGitHubId, string memory name, string memory symbol, uint8 decimals_) public {
+       OpenSauceToken spawn = new OpenSauceToken(name, symbol, decimals_, address(this)); 
+       _spawnedContracts.push(spawn);
+       _repos[address(spawn)] = Repo(gitHubUrl, msg.sender, creatorGitHubId);
     }
 
     function getSpawnedContracts() public view returns (OpenSauceToken[] memory){
-        return spawnedContracts;
+        return _spawnedContracts;
     }
 
     function getRepoInfo(address repoContractAddress) public view returns (Repo memory) {
-        return repos[repoContractAddress];
+        return _repos[repoContractAddress];
     }
 
-    function setGitHubLinkContract(address gitHubLinkContract_) public {
-        gitHubLinkContract = IGitHubLink(gitHubLinkContract_);
+    function setGitHubLinkContract(address gitHubLinkContract) public {
+        _gitHubLinkContract = IGitHubLink(gitHubLinkContract);
+    }
+
+    function linkedAccount(string memory username) public view returns (address) {
+        return _gitHubLinkContract.linkedAccount(username);
     }
 
 }
