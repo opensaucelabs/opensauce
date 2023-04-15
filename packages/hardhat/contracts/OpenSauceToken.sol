@@ -14,11 +14,12 @@ contract OpenSauceToken is Ownable, ERC20 {
     uint _creatorGitHubId;
 
     mapping(string => uint256) _claimables;
+    mapping(string => uint256) _totalRewarded;
+    string[] public contributorNames;
 
     IGitHubLink _gitHubLinkContract;
 
     constructor(
-        //address owner, // automatically set to msg.sender by Ownable
         string memory name,
         string memory symbol,
         uint8 decimals_,
@@ -34,14 +35,13 @@ contract OpenSauceToken is Ownable, ERC20 {
     function distribute(
         string[] memory usernames,
         uint256[] memory claimables
-    )
-        public
-        onlyOwner
-    {
+    ) public onlyOwner {
         uint256 arrLength = usernames.length;
         require(arrLength == claimables.length, "invalid parameters");
         for (uint i = 0; i < arrLength; i++) {
-            _claimables[usernames[i]] = claimables[i];
+            uint256 claimable_ = claimables[i];
+            _claimables[usernames[i]] += claimable_;
+            _totalRewarded[usernames[i]] += claimable_;
         }
     }
 
@@ -49,7 +49,7 @@ contract OpenSauceToken is Ownable, ERC20 {
         _setGitHubLinkContract(_address);
     }
 
-    function _setGitHubLinkContract(address _address) internal {
+    function _setGitHubLinkContract(address _address) private {
         _gitHubLinkContract = IGitHubLink(_address);
     }
 
@@ -65,6 +65,10 @@ contract OpenSauceToken is Ownable, ERC20 {
         return _claimables[username];
     }
 
+    function totalRewarded(string memory username) public view returns (uint256) {
+        return _totalRewarded[username];
+    }
+
     function decimals()
         public
         view
@@ -78,5 +82,6 @@ contract OpenSauceToken is Ownable, ERC20 {
     function _linkedAccount(string memory gitHubUsername) private view returns (address) {
         return _gitHubLinkContract.linkedAccount(gitHubUsername);
     }
+
 
 }
