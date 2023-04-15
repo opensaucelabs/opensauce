@@ -16,7 +16,7 @@ contract OpenSauceToken is Ownable, ERC20 {
     address _creator;
     uint _creatorGitHubId;
 
-    mapping(string => uint256) _claimables;
+    mapping(string => uint256) _claimable;
     mapping(string => uint256) _totalRewarded;
 
     IGitHubLink _gitHubLinkContract;
@@ -44,7 +44,7 @@ contract OpenSauceToken is Ownable, ERC20 {
         require(arrLength == amounts.length, "invalid parameters");
         for (uint i = 0; i < arrLength; i++) {
             uint256 claimable_ = amounts[i];
-            _claimables[usernames[i]] += claimable_;
+            _claimable[usernames[i]] += claimable_;
             _totalRewarded[usernames[i]] += claimable_;
         }
         lastDistribution = block.number;
@@ -61,13 +61,13 @@ contract OpenSauceToken is Ownable, ERC20 {
     function claim(string memory username) public {
         address linkedAccount = _linkedAccount(username);
         require(linkedAccount == msg.sender, "no authorization");
-        uint256 amount = _claimables[username];
-        delete _claimables[username];
+        uint256 amount = _claimable[username];
+        delete _claimable[username];
         _mint(linkedAccount, amount);
     }
 
     function claimable(string memory username) public view returns (uint256) {
-        return _claimables[username];
+        return _claimable[username];
     }
 
     function totalRewarded(string memory username) public view returns (uint256) {
