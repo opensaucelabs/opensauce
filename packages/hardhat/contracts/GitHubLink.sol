@@ -25,7 +25,6 @@ contract GitHubLink is ChainlinkClient, Ownable {
         // Sepolia: 0x779877A7B0D9E8603169DdbD7836e478b4624789
         oracle = 0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD; // Oracle address on sepolia testnet
         jobId = "7d80a6386ef543a3abb52817f6707e3b";
-        // 7da2702f37fd48e5b1b9a5715e3509b6
         fee = 0.1 * 10 ** 18;
         _domain = "https://raw.githubusercontent.com/";
         _filePath = "/main/.opensauce.json";

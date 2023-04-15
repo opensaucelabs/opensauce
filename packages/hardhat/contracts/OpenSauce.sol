@@ -10,7 +10,7 @@ contract OpenSauce is Ownable, IGitHubLink {
 
   OpenSauceToken[] _spawnedContracts;
 
-  IGitHubLink _gitHubLinkContract;
+  IGitHubLink _githubLinkContract;
 
   mapping(string => address[]) tokensForOwner;
   mapping(string => address) repoToken;
@@ -23,13 +23,13 @@ contract OpenSauce is Ownable, IGitHubLink {
     uint8 tokenDecimals
   ) public onlyOneTokenPerRepo(gitHubUrl) {
     // todo: require(msg.sender == linkedAccount(username));
-    OpenSauceToken spawn = new OpenSauceToken(tokenName, tokenSymbol, tokenDecimals, gitHubUrl, address(this));
+    OpenSauceToken spawn = new OpenSauceToken(msg.sender, tokenName, tokenSymbol, tokenDecimals, gitHubUrl, address(this));
     _spawnedContracts.push(spawn);
     tokensForOwner[username].push(address(spawn));
   }
 
-  function setGitHubLinkContract(address gitHubLinkContract) public {
-    _gitHubLinkContract = IGitHubLink(gitHubLinkContract);
+  function setGithubLinkContract(address githubLinkContract) public onlyOwner {
+    _githubLinkContract = IGitHubLink(githubLinkContract);
   }
 
   function getSpawnedContracts() public view returns (OpenSauceToken[] memory) {
@@ -37,15 +37,15 @@ contract OpenSauce is Ownable, IGitHubLink {
   }
 
   function linkedAccount(string memory username) public view returns (address) {
-    return _gitHubLinkContract.linkedAccount(username);
+    return _githubLinkContract.linkedAccount(username);
   }
 
-  function getTokenForOwner(string memory username) public view returns (address[] memory) {
+  function getTokensForOwner(string memory username) public view returns (address[] memory) {
     return tokensForOwner[username];
   }
 
-  modifier onlyOneTokenPerRepo(string memory gitHubUrl) {
-    require(repoToken[gitHubUrl] == address(0), "Token already exists for provided repo.");
+  modifier onlyOneTokenPerRepo(string memory githubUrl) {
+    require(repoToken[githubUrl] == address(0), "Token already exists for provided repo.");
     _;
   }
 
