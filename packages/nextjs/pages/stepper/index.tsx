@@ -11,7 +11,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
 
-const steps = ["Connect your Github", "Tokenize your repo", "Create an ad"];
+const steps = ["Connect your Github", "Tokenize your repo"];
 
 const BasicSelect = () => {
   const [age, setAge] = React.useState("");
@@ -23,12 +23,12 @@ const BasicSelect = () => {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Github repo</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
-          label="Age"
+          label="Github url"
           onChange={handleChange}
         >
           <MenuItem value={10}>Ten</MenuItem>
@@ -97,28 +97,44 @@ const step1 = () => {
           </div>
         </div>
         <div>
-          <div style={{ fontWeight: "800", fontSize: "20px", marginTop: "3rem", marginBottom: "0px" }}>
+          <div style={{ fontWeight: "800", fontSize: "20px", marginTop: "3rem", marginBottom: "1rem" }}>
             Token configuration
           </div>
           <div style={{ justifyContent: "center", alignItems: "center", display: "flex" }}>
             <div style={{ marginRight: "1rem", width: "50%" }}>
               <div>Total supply</div>
               <div>
-                <TextField style={{ width: "100%" }} id="outlined-basic" label="@github-username" variant="outlined" />
+                <TextField style={{ width: "100%" }} id="outlined-basic" label="Total supply" variant="outlined" />
               </div>
               <div style={{ wordWrap: "break-word" }}>
                 Define the total supply of the token and the number of decimals
               </div>
             </div>
-            <div style={{ width: "50%", marginTop: "1.5rem" }}>
-              <div>Symbol(Token name)</div>
+            <div style={{ width: "50%" }}>
+              <div>Token symbol</div>
               <div>
-                <TextField style={{ width: "100%" }} id="outlined-basic" label="@github-username" variant="outlined" />
+                <TextField
+                  style={{ width: "100%" }}
+                  id="outlined-basic"
+                  label="Symbol of the token"
+                  variant="outlined"
+                />
               </div>
               <div style={{ wordWrap: "break-word" }}>
                 The symbol will have the prefix os (ie: osETH) and can be the maximum of 4 charachters long (ie: osXXXX)
               </div>
             </div>
+          </div>
+          <div style={{ width: "50%", marginTop: "1rem" }}>
+            <div>Token name</div>
+            <div>
+              <TextField style={{ width: "100%" }} id="outlined-basic" label="Name of the token" variant="outlined" />
+            </div>
+          </div>
+          <div style={{ justifyContent: "center", alignItems: "center", display: "flex", marginTop: "3rem" }}>
+            <Button style={{ width: "150px", fontWeight: "800", border: "4px solid" }} variant="outlined">
+              Tokenize
+            </Button>
           </div>
         </div>
       </div>
@@ -183,16 +199,16 @@ export default function HorizontalLinearStepper() {
   };
 
   return (
-    <Box sx={{ width: "100%", padding: "40px" }}>
+    <Box sx={{ width: "100%", padding: "80px 150px" }}>
       <Stepper activeStep={activeStep} style={{ marginTop: "1rem" }}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
             optional?: React.ReactNode;
           } = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = <Typography variant="caption">Optional</Typography>;
-          }
+          //   if (isStepOptional(index)) {
+          //     labelProps.optional = <Typography variant="caption">Optional</Typography>;
+          //   }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
