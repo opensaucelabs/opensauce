@@ -3,8 +3,12 @@ import DataTable from "./table";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { useTokenData } from "~~/hooks/custom_hooks/useTokenData";
 
-export default function test_page() {
+export default function Dashboard() {
+  const address = "0x856e4424f806D16E8CBC702B3c0F2ede5468eae5";
+  const { symbol } = useTokenData(address);
+
   return (
     // <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
     <div style={{ display: "flex", flexDirection: "column", width: "100%", margin: "0", padding: "30px" }}>
@@ -18,7 +22,7 @@ export default function test_page() {
               Symbol
             </Typography>
             <Typography variant="h5" component="div">
-              osGABA
+              {symbol}
             </Typography>
           </CardContent>
         </Card>
