@@ -28,7 +28,7 @@ contract OpenSauce is Ownable, IGitHubLink {
     tokensForOwner[username].push(address(spawn));
   }
 
-  function setGitHubLinkContract(address gitHubLinkContract) public {
+  function setGitHubLinkContract(address gitHubLinkContract) public onlyOwner {
     _gitHubLinkContract = IGitHubLink(gitHubLinkContract);
   }
 
@@ -40,7 +40,7 @@ contract OpenSauce is Ownable, IGitHubLink {
     return _gitHubLinkContract.linkedAccount(username);
   }
 
-  function getTokenForOwner(string memory username) public view returns (address[] memory) {
+  function getTokensForOwner(string memory username) public view returns (address[] memory) {
     return tokensForOwner[username];
   }
 
