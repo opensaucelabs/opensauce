@@ -10,8 +10,8 @@ contract OpenSauce is Ownable, IGitHubLink {
 
   struct Repo {
     string gitHubUrl;
-    address creator;
-    string creatorUserName;
+    address owner;
+    string ownerUsername;
   }
 
   mapping(address => Repo) _repos;
@@ -25,11 +25,13 @@ contract OpenSauce is Ownable, IGitHubLink {
   function spawnContract(
     string memory gitHubUrl,
     string memory username,
-    string memory name,
-    string memory symbol,
-    uint8 decimals_
+    string memory tokenName,
+    string memory tokenSymbol,
+    uint8 tokenDecimals
   ) public {
-    OpenSauceToken spawn = new OpenSauceToken(name, symbol, decimals_, address(this));
+    // todo: require(msg.sender == linkedAccount(username));
+    // todo: require that githuburl doesn't exist yet
+    OpenSauceToken spawn = new OpenSauceToken(tokenName, tokenSymbol, tokenDecimals, gitHubUrl, address(this));
     _spawnedContracts.push(spawn);
     _repos[address(spawn)] = Repo(gitHubUrl, msg.sender, username);
     tokensForOwner[username].push(address(spawn));

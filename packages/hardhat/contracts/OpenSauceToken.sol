@@ -23,12 +23,14 @@ contract OpenSauceToken is Ownable, ERC20 {
         string memory name,
         string memory symbol,
         uint8 decimals_,
+        string memory gitHubUrl_,
         address gitHubLinkContractAddress // 0x1eAE1A6084E4c826dee0C173CDB5040ecFf1CBb7
     )
         ERC20(name, symbol)
     {
         //transferOwnership(owner);
         _decimals = decimals_;
+        _gitHubUrl = gitHubUrl_;
         _setGitHubLinkContract(gitHubLinkContractAddress);
     }
 
@@ -77,6 +79,10 @@ contract OpenSauceToken is Ownable, ERC20 {
         returns (uint8)
     {
         return _decimals;
+    }
+
+    function gitHubUrl() public view returns (string memory) {
+        return _gitHubUrl;
     }
 
     function _linkedAccount(string memory gitHubUsername) private view returns (address) {
