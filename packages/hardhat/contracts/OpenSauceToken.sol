@@ -36,12 +36,12 @@ contract OpenSauceToken is Ownable, ERC20 {
 
     function distribute(
         string[] memory usernames,
-        uint256[] memory claimables
+        uint256[] memory amounts
     ) public onlyOwner {
         uint256 arrLength = usernames.length;
-        require(arrLength == claimables.length, "invalid parameters");
+        require(arrLength == amounts.length, "invalid parameters");
         for (uint i = 0; i < arrLength; i++) {
-            uint256 claimable_ = claimables[i];
+            uint256 claimable_ = amounts[i];
             _claimables[usernames[i]] += claimable_;
             _totalRewarded[usernames[i]] += claimable_;
         }
