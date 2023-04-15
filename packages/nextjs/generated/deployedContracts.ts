@@ -5,7 +5,7 @@ const contracts = {
       chainId: "31337",
       contracts: {
         GitHubLink: {
-          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+          address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
           abi: [
             {
               inputs: [
@@ -58,6 +58,25 @@ const contracts = {
               type: "event",
             },
             {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "previousOwner",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "OwnershipTransferred",
+              type: "event",
+            },
+            {
               inputs: [
                 {
                   internalType: "string",
@@ -73,7 +92,7 @@ const contracts = {
                   type: "string",
                 },
               ],
-              stateMutability: "pure",
+              stateMutability: "view",
               type: "function",
             },
             {
@@ -185,6 +204,65 @@ const contracts = {
               type: "function",
             },
             {
+              inputs: [],
+              name: "owner",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "renounceOwnership",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "fee_",
+                  type: "uint256",
+                },
+              ],
+              name: "setFee",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "filePath",
+                  type: "string",
+                },
+              ],
+              name: "setFilePath",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "domain",
+                  type: "string",
+                },
+              ],
+              name: "setGitHubUrlDomain",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
               inputs: [
                 {
                   internalType: "bytes32",
@@ -193,6 +271,186 @@ const contracts = {
                 },
               ],
               name: "setJobId",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "oracle_",
+                  type: "address",
+                },
+              ],
+              name: "setOracle",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "transferOwnership",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+          ],
+        },
+        OpenSauce: {
+          address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+          abi: [
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "previousOwner",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "OwnershipTransferred",
+              type: "event",
+            },
+            {
+              inputs: [],
+              name: "getSpawnedContracts",
+              outputs: [
+                {
+                  internalType: "contract OpenSauceToken[]",
+                  name: "",
+                  type: "address[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "username",
+                  type: "string",
+                },
+              ],
+              name: "getTokensForOwner",
+              outputs: [
+                {
+                  internalType: "address[]",
+                  name: "",
+                  type: "address[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "username",
+                  type: "string",
+                },
+              ],
+              name: "linkedAccount",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "owner",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "renounceOwnership",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "githubLinkContract",
+                  type: "address",
+                },
+              ],
+              name: "setGithubLinkContract",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "gitHubUrl",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "username",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "tokenName",
+                  type: "string",
+                },
+                {
+                  internalType: "string",
+                  name: "tokenSymbol",
+                  type: "string",
+                },
+                {
+                  internalType: "uint8",
+                  name: "tokenDecimals",
+                  type: "uint8",
+                },
+              ],
+              name: "spawnContract",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "newOwner",
+                  type: "address",
+                },
+              ],
+              name: "transferOwnership",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -338,160 +596,6 @@ const contracts = {
             {
               stateMutability: "payable",
               type: "receive",
-            },
-          ],
-        },
-        OpenSauce: {
-          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-          abi: [
-            {
-              anonymous: false,
-              inputs: [
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "previousOwner",
-                  type: "address",
-                },
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "newOwner",
-                  type: "address",
-                },
-              ],
-              name: "OwnershipTransferred",
-              type: "event",
-            },
-            {
-              inputs: [],
-              name: "getSpawnedContracts",
-              outputs: [
-                {
-                  internalType: "contract OpenSauceToken[]",
-                  name: "",
-                  type: "address[]",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "username",
-                  type: "string",
-                },
-              ],
-              name: "getTokenForOwner",
-              outputs: [
-                {
-                  internalType: "address[]",
-                  name: "",
-                  type: "address[]",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "username",
-                  type: "string",
-                },
-              ],
-              name: "linkedAccount",
-              outputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "owner",
-              outputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "renounceOwnership",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "gitHubLinkContract",
-                  type: "address",
-                },
-              ],
-              name: "setGitHubLinkContract",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "string",
-                  name: "gitHubUrl",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "username",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "tokenName",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "tokenSymbol",
-                  type: "string",
-                },
-                {
-                  internalType: "uint8",
-                  name: "tokenDecimals",
-                  type: "uint8",
-                },
-              ],
-              name: "spawnContract",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "newOwner",
-                  type: "address",
-                },
-              ],
-              name: "transferOwnership",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
             },
           ],
         },

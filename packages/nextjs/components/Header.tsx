@@ -46,7 +46,7 @@ export const Header = () => {
         <NavLink href="/test_page">Dashboard</NavLink>
       </li>
       <li>
-        <NavLink href="/stepper">Daonitize the repo</NavLink>
+        <NavLink href="/stepper">Create a DAO</NavLink>
       </li>
       <li>
         <NavLink href="/debug">

@@ -7,6 +7,7 @@ export const useTokenData = (address: string) => {
   const provider = getProvider();
   const [symbol, setSymbol] = useState("");
   const [name, setName] = useState("");
+  const [githubUrl, setGithubUrl] = useState("");
   useEffect(() => {
     const token = new ethers.Contract(address, OpenSauceTokenAbi, provider);
     token.symbol().then();
@@ -14,13 +15,15 @@ export const useTokenData = (address: string) => {
     const fetchData = async () => {
       const symbol = await token.symbol();
       const name = await token.name();
+      const githubUrl = await token.githubUrl();
 
       setSymbol(symbol);
       setName(name);
+      setGithubUrl(githubUrl);
     };
 
     fetchData();
   }, [provider]);
 
-  return { symbol, name };
+  return { symbol, name, githubUrl };
 };
