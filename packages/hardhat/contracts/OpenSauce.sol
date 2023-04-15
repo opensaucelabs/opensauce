@@ -8,19 +8,13 @@ import "./IGitHubLink.sol";
 // Factory contract for creating OpenSauce token contracts.
 contract OpenSauce is Ownable, IGitHubLink {
 
-  struct Repo {
-    string gitHubUrl;
-    address owner;
-    string ownerUsername;
-  }
-
-  mapping(address => Repo) _repos;
-
   OpenSauceToken[] _spawnedContracts;
 
   IGitHubLink _gitHubLinkContract;
 
   mapping(string => address[]) tokensForOwner;
+  mapping(string => address) repoToken;
+  // todo: add list or all github urls that have a token
 
   function spawnContract(
     string memory gitHubUrl,
@@ -28,21 +22,15 @@ contract OpenSauce is Ownable, IGitHubLink {
     string memory tokenName,
     string memory tokenSymbol,
     uint8 tokenDecimals
-  ) public {
+  ) public onlyOneTokenPerRepo(gitHubUrl) {
     // todo: require(msg.sender == linkedAccount(username));
-    // todo: require that githuburl doesn't exist yet
     OpenSauceToken spawn = new OpenSauceToken(tokenName, tokenSymbol, tokenDecimals, gitHubUrl, address(this));
     _spawnedContracts.push(spawn);
-    _repos[address(spawn)] = Repo(gitHubUrl, msg.sender, username);
     tokensForOwner[username].push(address(spawn));
   }
 
   function getSpawnedContracts() public view returns (OpenSauceToken[] memory) {
     return _spawnedContracts;
-  }
-
-  function getRepoInfo(address repoContractAddress) public view returns (Repo memory) {
-    return _repos[repoContractAddress];
   }
 
   function setGitHubLinkContract(address gitHubLinkContract) public {
@@ -55,6 +43,11 @@ contract OpenSauce is Ownable, IGitHubLink {
 
   function getTokenForOwner(string memory username) public view returns (address[] memory) {
     return tokensForOwner[username];
+  }
+
+  modifier onlyOneTokenPerRepo(string memory gitHubUrl) {
+    require(repoToken[gitHubUrl] == address(0), "Token already exists for provided repo.");
+    _;
   }
 
 }
