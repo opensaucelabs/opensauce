@@ -13,8 +13,9 @@ export default function Dashboard() {
   const { symbol, githubUrl, totalSupply } = useTokenData(address);
 
   const rows = [
-    { id: 1, contributor: "claude@axlabs.com", totalTokens: 1000 },
-    { id: 2, contributor: "michi@axlabs.com", totalTokens: 800 },
+    { id: 1, contributor: "michi@axlabs.com", contributorName: "mialbu", totalTokens: 4600 },
+    { id: 2, contributor: "aleks@axlabs.com", contributorName: "hadzija7", totalTokens: 5000 },
+    { id: 3, contributor: "claude@axlabs.com", contributorName: "csmuller", totalTokens: 666 },
   ];
 
   return (
@@ -27,7 +28,7 @@ export default function Dashboard() {
         <Card style={{ width: "100%", marginRight: "10px" }}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Symbol
+              Token Symbol
             </Typography>
             <Typography variant="h5" component="div">
               {symbol}
@@ -49,14 +50,19 @@ export default function Dashboard() {
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               Github repository
             </Typography>
-            <Typography variant="h5" component="div">
-              {githubUrl}
-            </Typography>
+            <a href={githubUrl} target="_blank">
+              <Typography variant="h5" component="div">
+                {githubUrl}
+              </Typography>
+            </a>
           </CardContent>
         </Card>
       </div>
       <div>
-        <div style={{ fontSize: "20px", fontWeight: "800", marginBottom: "1rem" }}>Distribution per contributer</div>
+        <div style={{ fontSize: "20px", fontWeight: "800", marginBottom: "0rem" }}>Distribution per contributer</div>
+        <div style={{ fontSize: "13px", fontWeight: "400", marginBottom: "1rem" }}>
+          Shows the total amounts of tokens that contributors have been rewarded with so far.
+        </div>
         <DataTable rows={rows}></DataTable>
       </div>
       <div style={{ justifyContent: "center", alignItems: "center", display: "flex", marginTop: "3rem" }}>
