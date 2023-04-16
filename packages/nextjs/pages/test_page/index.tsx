@@ -12,6 +12,11 @@ export default function Dashboard() {
   const address = "0x0E1F40d1613eab414F932D2d610FE481ECb9cC75";
   const { symbol, githubUrl, totalSupply } = useTokenData(address);
 
+  const rows = [
+    { id: 1, contributor: "claude@axlabs.com", totalTokens: 1000 },
+    { id: 2, contributor: "michi@axlabs.com", totalTokens: 800 },
+  ];
+
   return (
     // <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
     <div style={{ display: "flex", flexDirection: "column", width: "100%", margin: "0", padding: "30px" }}>
@@ -52,7 +57,7 @@ export default function Dashboard() {
       </div>
       <div>
         <div style={{ fontSize: "20px", fontWeight: "800", marginBottom: "1rem" }}>Distribution per contributer</div>
-        <DataTable rows={[]}></DataTable>
+        <DataTable rows={rows}></DataTable>
       </div>
       <div style={{ justifyContent: "center", alignItems: "center", display: "flex", marginTop: "3rem" }}>
         <NavLink href={"test_page/" + address}>
