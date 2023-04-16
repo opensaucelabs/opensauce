@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 
+// Governor that votes on OpenSauceDistributor proposals based on existing OpenSauceTokens.
+// Todo: Integrate with token and distributor contracts.
 contract OpenSauceGovernor is Governor, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
 
     constructor(IVotes _token)
