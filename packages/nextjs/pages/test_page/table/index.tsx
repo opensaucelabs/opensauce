@@ -22,10 +22,10 @@ const columns: GridColDef[] = [
   // },
 ];
 
-const rows_new = [
-  { id: 1, contributor: "claude@axlabs.com", totalTokens: 1000 },
-  { id: 2, contributor: "michi@axlabs.com", totalTokens: 800 },
-];
+// const rows_new = [
+//   { id: 1, contributor: "claude@axlabs.com", totalTokens: 1000 },
+//   { id: 2, contributor: "michi@axlabs.com", totalTokens: 800 },
+// ];
 
 // const rows = [
 //   { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
@@ -39,10 +39,14 @@ const rows_new = [
 //   { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 // ];
 
-export default function DataTable() {
+interface TableParams {
+  rows: any;
+}
+
+export default function DataTable({ rows }: TableParams) {
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <DataGrid rows={rows_new} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection />
+      <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection />
     </div>
   );
 }

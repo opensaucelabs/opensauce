@@ -16,10 +16,19 @@ export default function DistributeTokens() {
   });
   const { githubUrl } = useTokenData(url?.toString() || default_address.toString());
 
+  const rows = [
+    { id: 1, contributor: "claude@axlabs.com", totalTokens: 1000 },
+    { id: 2, contributor: "michi@axlabs.com", totalTokens: 800 },
+  ];
+
+  const handleDistribution = async () => {
+    console.log("Handling distribution...");
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "100%", margin: "0", padding: "30px" }}>
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-        <div style={{ fontSize: "20px", fontWeight: "800", marginBottom: "1rem" }}>Distribution preview</div>
+        <div style={{ fontSize: "20px", fontWeight: "800", marginBottom: "1rem" }}>Suggested Distribution</div>
         <div>
           Github Repo
           <a href={githubUrl} target="_blank">
@@ -27,7 +36,7 @@ export default function DistributeTokens() {
           </a>
         </div>
       </div>
-      <DataTable></DataTable>
+      <DataTable rows={rows}></DataTable>
 
       <div style={{ marginTop: "10px" }}>
         Enter the amount of tokens to distribute <br />
@@ -35,7 +44,11 @@ export default function DistributeTokens() {
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: "5rem" }}>
-        <Button style={{ width: "150px", fontWeight: "800", border: "4px solid" }} variant="outlined">
+        <Button
+          onClick={handleDistribution}
+          style={{ width: "150px", fontWeight: "800", border: "4px solid" }}
+          variant="outlined"
+        >
           Finish distribution
         </Button>
       </div>

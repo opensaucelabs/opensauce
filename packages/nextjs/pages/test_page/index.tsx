@@ -4,8 +4,8 @@ import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { useTokenData } from "~~/hooks/custom_hooks/useTokenData";
 import { NavLink } from "~~/components/Header";
+import { useTokenData } from "~~/hooks/custom_hooks/useTokenData";
 
 export default function Dashboard() {
   // const address = "0x3B02fF1e626Ed7a8fd6eC5299e2C54e1421B626B";
@@ -52,12 +52,12 @@ export default function Dashboard() {
       </div>
       <div>
         <div style={{ fontSize: "20px", fontWeight: "800", marginBottom: "1rem" }}>Distribution per contributer</div>
-        <DataTable></DataTable>
+        <DataTable rows={[]}></DataTable>
       </div>
       <div style={{ justifyContent: "center", alignItems: "center", display: "flex", marginTop: "3rem" }}>
-        <NavLink href={"test_page/"+address}>
+        <NavLink href={"test_page/" + address}>
           <Button style={{ width: "150px", fontWeight: "800", border: "4px solid" }} variant="outlined">
-              Distribute tokens
+            Distribute tokens
           </Button>
         </NavLink>
       </div>
