@@ -19,6 +19,7 @@
     "@ethersproject/networks": "^5.7.1",
     "@ethersproject/web": "^5.7.1",
     "@heroicons/react": "^2.0.11",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.0",
     "@mui/x-data-grid": "5",
     "@rainbow-me/rainbowkit": "^0.11.0",
