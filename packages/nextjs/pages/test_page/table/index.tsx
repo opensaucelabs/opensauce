@@ -2,8 +2,8 @@ import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "Id", width: 70 },
-  { field: "contributor", headerName: "Contributor", width: 170 },
+  // { field: "id", headerName: "Id", width: 70 },
+  { field: "contributor", headerName: "Contributor", width: 200 },
   { field: "totalTokens", headerName: "Total tokens", width: 130 },
   // { field: "lastName", headerName: "Last name", width: 130 },
   // {
