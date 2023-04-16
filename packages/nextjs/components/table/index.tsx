@@ -43,7 +43,7 @@ interface TableParams {
   rows: any;
 }
 
-export default function DataTable({ rows }: TableParams) {
+export const DataTable = ({ rows }: TableParams) => {
   React.useEffect(() => {
     console.log("Rows: ", rows);
   });
@@ -52,4 +52,4 @@ export default function DataTable({ rows }: TableParams) {
       <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection />
     </div>
   );
-}
+};

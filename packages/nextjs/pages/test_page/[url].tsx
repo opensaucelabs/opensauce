@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import DataTable from "./table";
+import { DataTable } from "../../components/table";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { Button, TextField } from "@mui/material";
 import { useTokenData } from "~~/hooks/custom_hooks/useTokenData";

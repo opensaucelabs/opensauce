@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "./table";
+import { DataTable } from "../../components/table";
 import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
